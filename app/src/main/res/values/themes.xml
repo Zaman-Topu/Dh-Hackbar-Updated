@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    FIXES APPLIED TO STYLES:
+    1. Migrated from android:style/Theme.Material.* to MaterialComponents (AndroidX)
+    2. windowLightStatusBar properly handled for API 23+
+    3. Removed deprecated statusBarBackground from CoordinatorLayout style
+    4. Added proper NavigationBar color handling
+    5. NoActionBar theme inherits from MaterialComponents for full compat
+-->
+<resources>
+
+    <!-- =====================================================
+         BASE APPLICATION THEME
+         FIX: Was android:style/Theme.Material.Light.DarkActionBar
+              → Now MaterialComponents.DayNight.NoActionBar (AndroidX)
+    ====================================================== -->
+    <style name="Theme.HackBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:statusBarColor">@color/colorStatusBar</item>
+        <item name="android:navigationBarColor">@color/colorNavBar</item>
+        <!-- FIX: API 23+ light status bar icons; dark bg → use light icons -->
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- SPLASH SCREEN THEME (for MainActivity / Splash) -->
+    <style name="Theme.HackBar.Splash" parent="Theme.HackBar">
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+    <!-- NO ACTION BAR (used by HackbarActivity and most screens) -->
+    <style name="Theme.HackBar.NoActionBar" parent="Theme.HackBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- FULLSCREEN (if ever needed) -->
+    <style name="Theme.HackBar.Fullscreen" parent="Theme.HackBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- =====================================================
+         CHIP STYLE — for HackBar toolbar action buttons
+         FIX: Original used plain TextView with manual background drawing.
+              Now uses Material Chip for proper ripple + accessibility.
+    ====================================================== -->
+    <style name="Widget.HackBar.Chip" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:textColor">@color/colorChipText</item>
+        <item name="android:textSize">13sp</item>
+        <item name="chipBackgroundColor">@color/colorChipBackground</item>
+        <item name="chipStrokeColor">@color/colorChipBorder</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipCornerRadius">6dp</item>
+        <item name="rippleColor">@color/colorRipple</item>
+        <item name="android:minHeight">32dp</item>
+    </style>
+
+    <!-- =====================================================
+         TEXT INPUT STYLE
+    ====================================================== -->
+    <style name="Widget.HackBar.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/colorSecondary</item>
+        <item name="hintTextColor">@color/colorSecondary</item>
+        <item name="android:textColorHint">@color/colorHint</item>
+    </style>
+
+    <!-- =====================================================
+         BOTTOM SHEET DIALOG — for injection menus
+    ====================================================== -->
+    <style name="Theme.HackBar.BottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.HackBar.BottomSheet</item>
+    </style>
+
+    <style name="Widget.HackBar.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="android:background">@color/colorSurface</item>
+    </style>
+
+    <!-- =====================================================
+         ALERT DIALOG
+         FIX: Original used android.R.style.Theme.Material.Dialog.Alert
+              → Now uses MaterialComponents dialog for consistent theming
+    ====================================================== -->
+    <style name="Theme.HackBar.AlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:background">@color/colorSurface</item>
+        <item name="colorPrimary">@color/colorSecondary</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+    </style>
+
+</resources>

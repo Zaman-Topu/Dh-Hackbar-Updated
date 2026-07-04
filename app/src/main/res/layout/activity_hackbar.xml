@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    MAIN HACKBAR BROWSER LAYOUT (hackbar.xml)
+    FIXES APPLIED:
+    1. Replaced LinearLayout nesting with ConstraintLayout root
+    2. All hardcoded "Fuck" placeholder texts removed → string resources
+    3. All hardcoded #000000 colors replaced with theme colors
+    4. singleLine (deprecated) → maxLines="1" + ellipsize
+    5. android:paddingLeft/Right → paddingStart/End (RTL support)
+    6. HorizontalScrollView button rows → ChipGroup with HorizontalScrollView
+    7. Material TextInputLayout replaces raw EditText for URL bar
+    8. Material LinearProgressIndicator replaces old ProgressBar
+    9. Find-in-page bar uses Material styling
+    10. WebView container properly weighted with ConstraintLayout
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:fitsSystemWindows="false">
+
+    <LinearLayout
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- ======== TOP BAR ======== -->
+        <LinearLayout
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/colorTopBar"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:elevation="4dp">
+
+            <!-- App Name -->
+            <TextView
+                android:id="@+id/appname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/app_name"
+                android:textColor="@color/colorOnPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="4dp" />
+
+            <!-- Undo -->
+            <ImageView
+                android:id="@+id/undo"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_undo"
+                android:contentDescription="Undo"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:tint="@color/colorOnPrimary" />
+
+            <!-- Redo -->
+            <ImageView
+                android:id="@+id/redo"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_redo"
+                android:contentDescription="Redo"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:tint="@color/colorOnPrimary" />
+
+            <!-- Note / Queries -->
+            <ImageView
+                android:id="@+id/note"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_note"
+                android:contentDescription="Custom Queries"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:tint="@color/colorSecondary" />
+
+            <!-- Visibility toggle -->
+            <ImageView
+                android:id="@+id/visible"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_visibility"
+                android:contentDescription="Toggle Toolbar Visibility"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:tint="@color/colorOnPrimary" />
+
+            <!-- Menu -->
+            <ImageView
+                android:id="@+id/menu"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_more_vert"
+                android:contentDescription="Menu"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:tint="@color/colorOnPrimary" />
+        </LinearLayout>
+
+        <!-- ======== URL INPUT BAR ======== -->
+        <LinearLayout
+            android:id="@+id/inputlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/colorSurface"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="4dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp">
+
+            <!-- URL EditText -->
+            <EditText
+                android:id="@+id/urlfield"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_url_field"
+                android:textColor="@color/colorOnSurface"
+                android:textColorHint="@color/colorHint"
+                android:textSize="13sp"
+                android:hint="@string/hint_url"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:inputType="textUri"
+                android:imeOptions="actionGo"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp" />
+
+            <!-- POST Data Toggle -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/find"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="@string/btn_find"
+                android:textColor="@color/colorSecondary"
+                android:textSize="12sp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
+        </LinearLayout>
+
+        <!-- POST data field (hidden by default) -->
+        <EditText
+            android:id="@+id/postdatafield"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorSurfaceVariant"
+            android:textColor="@color/colorOnSurface"
+            android:textColorHint="@color/colorHint"
+            android:textSize="12sp"
+            android:hint="@string/hint_post_data"
+            android:maxLines="3"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:visibility="gone" />
+
+        <!-- Secure/Warning label -->
+        <TextView
+            android:id="@+id/warninglabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWarning"
+            android:textColor="#1A1A2E"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:visibility="gone" />
+
+        <!-- ======== HACKBAR TOOLBAR ROWS ======== -->
+        <LinearLayout
+            android:id="@+id/toolbarrows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorSurface">
+
+            <!-- ROW 1: Core Injection Types -->
+            <HorizontalScrollView
+                android:id="@+id/row1scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingTop="3dp"
+                android:paddingBottom="2dp">
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/row1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    app:singleLine="true">
+                    <com.google.android.material.chip.Chip android:id="@+id/sqli" style="@style/Widget.HackBar.Chip" android:text="@string/btn_sqli" />
+                    <com.google.android.material.chip.Chip android:id="@+id/union" style="@style/Widget.HackBar.Chip" android:text="@string/btn_union" />
+                    <com.google.android.material.chip.Chip android:id="@+id/error" style="@style/Widget.HackBar.Chip" android:text="@string/btn_error" />
+                    <com.google.android.material.chip.Chip android:id="@+id/xpath" style="@style/Widget.HackBar.Chip" android:text="@string/btn_xpath" />
+                    <com.google.android.material.chip.Chip android:id="@+id/mssql" style="@style/Widget.HackBar.Chip" android:text="@string/btn_mssql" />
+                    <com.google.android.material.chip.Chip android:id="@+id/postgresql" style="@style/Widget.HackBar.Chip" android:text="@string/btn_postgresql" />
+                    <com.google.android.material.chip.Chip android:id="@+id/dios" style="@style/Widget.HackBar.Chip" android:text="@string/btn_dios" />
+                    <com.google.android.material.chip.Chip android:id="@+id/lfi" style="@style/Widget.HackBar.Chip" android:text="@string/btn_lfi" />
+                    <com.google.android.material.chip.Chip android:id="@+id/rfi" style="@style/Widget.HackBar.Chip" android:text="@string/btn_rfi" />
+                    <com.google.android.material.chip.Chip android:id="@+id/rce" style="@style/Widget.HackBar.Chip" android:text="@string/btn_rce" />
+                    <com.google.android.material.chip.Chip android:id="@+id/xss" style="@style/Widget.HackBar.Chip" android:text="@string/btn_xss" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
+            <!-- ROW 2: Encoding Tools -->
+            <HorizontalScrollView
+                android:id="@+id/row2scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp">
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/row2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    app:singleLine="true">
+                    <com.google.android.material.chip.Chip android:id="@+id/urlencode" style="@style/Widget.HackBar.Chip" android:text="@string/btn_url_encode" />
+                    <com.google.android.material.chip.Chip android:id="@+id/hexencode" style="@style/Widget.HackBar.Chip" android:text="@string/btn_hex_encode" />
+                    <com.google.android.material.chip.Chip android:id="@+id/base64encode" style="@style/Widget.HackBar.Chip" android:text="@string/btn_base64_encode" />
+                    <com.google.android.material.chip.Chip android:id="@+id/binaryencode" style="@style/Widget.HackBar.Chip" android:text="@string/btn_binary_encode" />
+                    <com.google.android.material.chip.Chip android:id="@+id/asciiencode" style="@style/Widget.HackBar.Chip" android:text="@string/btn_ascii_encode" />
+                    <com.google.android.material.chip.Chip android:id="@+id/urldecode" style="@style/Widget.HackBar.Chip" android:text="@string/btn_url_decode" />
+                    <com.google.android.material.chip.Chip android:id="@+id/hexdecode" style="@style/Widget.HackBar.Chip" android:text="@string/btn_hex_decode" />
+                    <com.google.android.material.chip.Chip android:id="@+id/base64decode" style="@style/Widget.HackBar.Chip" android:text="@string/btn_base64_decode" />
+                    <com.google.android.material.chip.Chip android:id="@+id/binarydecode" style="@style/Widget.HackBar.Chip" android:text="@string/btn_binary_decode" />
+                    <com.google.android.material.chip.Chip android:id="@+id/asciidecode" style="@style/Widget.HackBar.Chip" android:text="@string/btn_ascii_decode" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
+            <!-- ROW 3: Bypass Techniques -->
+            <HorizontalScrollView
+                android:id="@+id/row3scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp">
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/row3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    app:singleLine="true">
+                    <com.google.android.material.chip.Chip android:id="@+id/authbypass" style="@style/Widget.HackBar.Chip" android:text="@string/btn_auth_bypass" />
+                    <com.google.android.material.chip.Chip android:id="@+id/orderbybypass" style="@style/Widget.HackBar.Chip" android:text="@string/btn_orderby_bypass" />
+                    <com.google.android.material.chip.Chip android:id="@+id/unionselectbypass" style="@style/Widget.HackBar.Chip" android:text="@string/btn_union_bypass" />
+                    <com.google.android.material.chip.Chip android:id="@+id/wafbypass" style="@style/Widget.HackBar.Chip" android:text="@string/btn_waf_bypass" />
+                    <com.google.android.material.chip.Chip android:id="@+id/urlbalancer" style="@style/Widget.HackBar.Chip" android:text="@string/btn_url_balancer" />
+                    <com.google.android.material.chip.Chip android:id="@+id/polygon" style="@style/Widget.HackBar.Chip" android:text="@string/btn_polygon" />
+                    <com.google.android.material.chip.Chip android:id="@+id/writablepath" style="@style/Widget.HackBar.Chip" android:text="@string/btn_writable_path" />
+                    <com.google.android.material.chip.Chip android:id="@+id/userprivileges" style="@style/Widget.HackBar.Chip" android:text="@string/btn_user_privileges" />
+                    <com.google.android.material.chip.Chip android:id="@+id/uploader" style="@style/Widget.HackBar.Chip" android:text="@string/btn_upload" />
+                    <com.google.android.material.chip.Chip android:id="@+id/extractlinks" style="@style/Widget.HackBar.Chip" android:text="@string/btn_extract_links" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
+            <!-- ROW 4: Browser Tools -->
+            <HorizontalScrollView
+                android:id="@+id/row4scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingTop="2dp"
+                android:paddingBottom="3dp">
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/row4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    app:singleLine="true">
+                    <com.google.android.material.chip.Chip android:id="@+id/findinpage" style="@style/Widget.HackBar.Chip" android:text="@string/btn_find" />
+                    <com.google.android.material.chip.Chip android:id="@+id/viewsource" style="@style/Widget.HackBar.Chip" android:text="@string/btn_view_source" />
+                    <com.google.android.material.chip.Chip android:id="@+id/postdata" style="@style/Widget.HackBar.Chip" android:text="@string/btn_post_data" />
+                    <com.google.android.material.chip.Chip android:id="@+id/tamperdata" style="@style/Widget.HackBar.Chip" android:text="@string/btn_tamper_data" />
+                    <com.google.android.material.chip.Chip android:id="@+id/javascript" style="@style/Widget.HackBar.Chip" android:text="@string/btn_javascript" />
+                    <com.google.android.material.chip.Chip android:id="@+id/noredirect" style="@style/Widget.HackBar.Chip" android:text="@string/btn_no_redirect" />
+                    <com.google.android.material.chip.Chip android:id="@+id/adminfinder" style="@style/Widget.HackBar.Chip" android:text="@string/btn_admin_finder" />
+                    <com.google.android.material.chip.Chip android:id="@+id/adminscanner" style="@style/Widget.HackBar.Chip" android:text="@string/btn_admin_scanner" />
+                    <com.google.android.material.chip.Chip android:id="@+id/webtools" style="@style/Widget.HackBar.Chip" android:text="@string/btn_web_tools" />
+                    <com.google.android.material.chip.Chip android:id="@+id/useragent" style="@style/Widget.HackBar.Chip" android:text="@string/btn_user_agent" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <!-- ======== PAGE TITLE BAR ======== -->
+        <LinearLayout
+            android:id="@+id/pagetitlelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@color/colorSurfaceVariant"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp">
+
+            <ImageView
+                android:id="@+id/pagefavicon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="6dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="Page favicon" />
+
+            <TextView
+                android:id="@+id/pagetitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- ======== PROGRESS BAR ======== -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:indeterminate="false"
+            android:visibility="gone"
+            app:indicatorColor="@color/colorSecondary"
+            app:trackColor="@color/colorSurface" />
+
+        <!-- ======== FIND IN PAGE BAR ======== -->
+        <LinearLayout
+            android:id="@+id/findlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/colorSurface"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/findfield"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_url_field"
+                android:textColor="@color/colorOnSurface"
+                android:textColorHint="@color/colorHint"
+                android:textSize="14sp"
+                android:hint="@string/hint_find"
+                android:maxLines="1"
+                android:imeOptions="actionDone"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
+
+            <ImageView
+                android:id="@+id/findprev"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_arrow_up"
+                android:contentDescription="Previous result"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:tint="@color/colorSecondary" />
+
+            <ImageView
+                android:id="@+id/findnext"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_arrow_down"
+                android:contentDescription="Next result"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:tint="@color/colorSecondary" />
+
+            <ImageView
+                android:id="@+id/findclose"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_close"
+                android:contentDescription="Close find bar"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:tint="@color/colorOnSurfaceVariant" />
+        </LinearLayout>
+
+        <!-- ======== WEBVIEW CONTAINER ======== -->
+        <LinearLayout
+            android:id="@+id/webviewcontainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

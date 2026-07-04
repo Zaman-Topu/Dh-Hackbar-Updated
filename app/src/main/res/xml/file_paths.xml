@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    FileProvider paths — FIX for crash on API 24+ when sharing File:// URIs
+    The original app used File:// URIs directly which causes FileUriExposedException
+    on Android 7+ (API 24+). FileProvider converts them to content:// URIs safely.
+-->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-cache-path name="shared_files" path="HackBar/" />
+    <cache-path name="cache_files" path="." />
+    <files-path name="internal_files" path="." />
+</paths>

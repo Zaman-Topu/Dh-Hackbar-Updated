@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Network Security Config:
+    - FIX: Allows cleartext HTTP (required for pentesting HTTP targets)
+    - Restricts trust anchors to system CAs only (no user-installed CAs trusted by default)
+    - This is the modern replacement for android:usesCleartextTraffic="true" alone
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

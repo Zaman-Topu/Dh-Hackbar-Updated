@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DH HackBar</string>
+    <string name="app_version">v2.0</string>
+    <string name="app_description">Advanced Web Penetration Testing Tool</string>
+
+    <!-- Common Actions -->
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_use">Use</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_share">Share</string>
+    <string name="action_back">Back</string>
+    <string name="action_close">Close</string>
+    <string name="action_go">Go</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_find">Find</string>
+    <string name="action_add">Add</string>
+    <string name="action_edit">Edit</string>
+
+    <!-- Activity Names -->
+    <string name="title_hackbar">HackBar</string>
+    <string name="title_admin_finder">Admin Panel Finder</string>
+    <string name="title_admin_scanner">Admin Panel Scanner</string>
+    <string name="title_custom_query">Custom Query</string>
+    <string name="title_new_query">New Query</string>
+    <string name="title_edit_query">Edit Query</string>
+    <string name="title_web_tools">Web Tools</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_about">About</string>
+    <string name="title_debug">Debug Log</string>
+    <string name="title_hash_decrypter">Hash Decrypter</string>
+    <string name="title_sqli_scanner">SQLi Scanner</string>
+    <string name="title_reverse_ip">Reverse IP</string>
+    <string name="title_subdomain_checker">Sub-Domain Checker</string>
+
+    <!-- URL Bar -->
+    <string name="hint_url">Enter URL…</string>
+    <string name="hint_post_data">POST data…</string>
+
+    <!-- Injection Categories -->
+    <string name="category_sqli">SQL Injection</string>
+    <string name="category_bypass">Bypass</string>
+    <string name="category_encoding">Encoding</string>
+    <string name="category_lfi_rfi">LFI / RFI</string>
+    <string name="category_xss">XSS</string>
+    <string name="category_tools">Tools</string>
+
+    <!-- HackBar Button Labels -->
+    <string name="btn_sqli">SQLi</string>
+    <string name="btn_union">Union</string>
+    <string name="btn_error">Error</string>
+    <string name="btn_xpath">XPath</string>
+    <string name="btn_mssql">MsSQL</string>
+    <string name="btn_postgresql">PostgreSQL</string>
+    <string name="btn_dios">DIOS</string>
+    <string name="btn_lfi">LFI</string>
+    <string name="btn_rfi">RFI</string>
+    <string name="btn_rce">RCE</string>
+    <string name="btn_xss">XSS</string>
+    <string name="btn_encoding">Encoding</string>
+    <string name="btn_auth_bypass">Auth Bypass</string>
+    <string name="btn_orderby_bypass">Order By Bypass</string>
+    <string name="btn_union_bypass">Union Select Bypass</string>
+    <string name="btn_waf_bypass">WAF Bypass</string>
+    <string name="btn_url_encode">URL Encode</string>
+    <string name="btn_hex_encode">Hex Encode</string>
+    <string name="btn_base64_encode">Base64 Encode</string>
+    <string name="btn_binary_encode">Binary Encode</string>
+    <string name="btn_ascii_encode">ASCII Encode</string>
+    <string name="btn_url_decode">URL Decode</string>
+    <string name="btn_hex_decode">Hex Decode</string>
+    <string name="btn_base64_decode">Base64 Decode</string>
+    <string name="btn_binary_decode">Binary Decode</string>
+    <string name="btn_ascii_decode">ASCII Decode</string>
+    <string name="btn_find">Find in Page</string>
+    <string name="btn_view_source">View Source</string>
+    <string name="btn_post_data">POST Data</string>
+    <string name="btn_tamper_data">Tamper Data</string>
+    <string name="btn_javascript">JavaScript</string>
+    <string name="btn_no_redirect">No Redirect</string>
+    <string name="btn_admin_finder">Admin Finder</string>
+    <string name="btn_admin_scanner">Admin Scanner</string>
+    <string name="btn_web_tools">Web Tools</string>
+    <string name="btn_user_agent">User Agent</string>
+    <string name="btn_writable_path">Writable Path</string>
+    <string name="btn_user_privileges">User Privileges</string>
+    <string name="btn_upload">Uploader</string>
+    <string name="btn_extract_links">Extract Links</string>
+    <string name="btn_url_balancer">URL Balancer</string>
+    <string name="btn_polygon">Polygon</string>
+
+    <!-- Permission Activity -->
+    <string name="permission_title">Permission Required</string>
+    <string name="permission_message">DH HackBar needs storage permission to save and load custom queries. This permission is required for the app to function properly.</string>
+    <string name="permission_grant">Grant Permission</string>
+    <string name="permission_denied_title">Permission Denied</string>
+    <string name="permission_denied_message">Without storage permission, custom queries cannot be saved or loaded. Please grant the permission in Settings to use all features.</string>
+    <string name="permission_open_settings">Open Settings</string>
+    <string name="permission_exit">Exit</string>
+
+    <!-- Settings -->
+    <string name="setting_save_last_url">Save Last URL</string>
+    <string name="setting_save_last_url_desc">Restore the last visited URL when you reopen the app</string>
+    <string name="setting_text_size">Browser Text Size</string>
+    <string name="setting_text_size_desc">Adjust the text size in the built-in browser</string>
+    <string name="setting_view_source_method">View Source Method</string>
+    <string name="setting_view_source_external">External Browser</string>
+    <string name="setting_view_source_internal">Internal Viewer</string>
+    <string name="setting_view_source_raw">Raw Text</string>
+    <string name="setting_clear_data">Clear App Data</string>
+    <string name="setting_clear_data_confirm_title">Clear App Data?</string>
+    <string name="setting_clear_data_confirm_msg">This will clear browser cache, cookies, history and app preferences. Custom queries will NOT be deleted.</string>
+
+    <!-- About Activity -->
+    <string name="about_title">About DH HackBar</string>
+    <string name="about_version_label">Version</string>
+    <string name="about_dev_title">Developers</string>
+    <string name="about_social_title">Social Links</string>
+    <string name="about_agreements_title">Legal</string>
+    <string name="about_terms">Terms of Service</string>
+    <string name="about_privacy">Privacy Policy</string>
+    <string name="about_sysinfo_title">System Info</string>
+    <string name="about_android_version">Android Version</string>
+    <string name="about_device_info">Device Model</string>
+
+    <!-- Custom Query -->
+    <string name="hint_query_title">Query Title…</string>
+    <string name="hint_query_body">Enter your SQL / payload here…</string>
+    <string name="query_empty">No custom queries saved yet.\nTap + to add one.</string>
+    <string name="query_saved">Query saved</string>
+    <string name="query_deleted">Query deleted</string>
+
+    <!-- Find in Page -->
+    <string name="hint_find">Search in page…</string>
+
+    <!-- Admin Finder -->
+    <string name="admin_hint">Enter target URL…</string>
+    <string name="admin_scanning">Scanning admin panels…</string>
+    <string name="admin_no_results">No admin panels found</string>
+
+    <!-- Errors / Warnings -->
+    <string name="error_no_internet">No internet connection</string>
+    <string name="error_invalid_url">Invalid URL. Please include http:// or https://</string>
+    <string name="warn_cleartext">Warning: Loading over insecure HTTP</string>
+
+    <!-- Disclaimer (shown on first launch) -->
+    <string name="disclaimer_title">Disclaimer</string>
+    <string name="disclaimer_message">DH HackBar is built for ethical penetration testing and educational purposes only. The developers are not responsible for any misuse. Use only on systems you have explicit permission to test.</string>
+    <string name="disclaimer_agree">I Agree</string>
+    <string name="disclaimer_exit">Exit</string>
+</resources>

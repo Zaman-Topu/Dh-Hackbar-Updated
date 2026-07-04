@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:background="@color/colorTopBar"
+        android:gravity="center_vertical"
+        android:paddingStart="4dp"
+        android:paddingEnd="8dp"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="44dp" android:layout_height="44dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/action_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true" android:focusable="true"
+            android:tint="@color/colorOnPrimary" />
+
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Debug Log"
+            android:textColor="@color/colorOnPrimary" android:textSize="18sp"
+            android:textStyle="bold" android:paddingStart="8dp" />
+
+        <TextView android:id="@+id/debug_clear"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Clear" android:textColor="@color/colorError"
+            android:textSize="14sp" android:paddingStart="8dp" android:paddingEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true" android:focusable="true" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/debug_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textColor="@color/colorOnSurfaceVariant"
+            android:textSize="11sp"
+            android:fontFamily="monospace"
+            android:lineSpacingMultiplier="1.4" />
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

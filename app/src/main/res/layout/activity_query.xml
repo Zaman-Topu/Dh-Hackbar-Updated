@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    QUERY EDITOR LAYOUT (activity_query.xml)
+    FIXES:
+    1. android:gravity="left|top" → android:gravity="start|top" (RTL compat)
+    2. singleLine (deprecated) → maxLines="1"
+    3. Hardcoded colors → theme refs
+    4. TextInputLayout wrapping EditText for Material field appearance
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <!-- TOP BAR -->
+    <LinearLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:background="@color/colorTopBar"
+        android:gravity="center_vertical"
+        android:paddingStart="4dp"
+        android:paddingEnd="8dp"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/action_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="@color/colorOnPrimary" />
+
+        <TextView
+            android:id="@+id/activityname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/title_new_query"
+            android:textColor="@color/colorOnPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingStart="8dp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/use"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_use"
+            android:textColor="@color/colorSecondary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/save"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_save"
+            android:contentDescription="@string/action_save"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="@color/colorSecondary" />
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View android:id="@+id/hr0" android:layout_width="match_parent" android:layout_height="1dp"
+        android:background="@color/colorDivider" />
+
+    <!-- Title Field -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/colorSecondary"
+        app:hintTextColor="@color/colorSecondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/titlefield"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorOnSurface"
+            android:textSize="16sp"
+            android:hint="@string/hint_query_title"
+            android:maxLines="1"
+            android:inputType="text"
+            android:imeOptions="actionNext" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Body Field -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/colorSecondary"
+        app:hintTextColor="@color/colorSecondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/bodyfield"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorOnSurfaceVariant"
+            android:textSize="14sp"
+            android:hint="@string/hint_query_body"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

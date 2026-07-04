@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    FIXES APPLIED TO MANIFEST:
+    1. platformBuildVersionCode/Name removed (deprecated artifact attributes)
+    2. android:requestLegacyExternalStorage added for Android 10 compat
+    3. READ/WRITE_EXTERNAL_STORAGE scoped correctly with maxSdkVersion=32
+    4. FileProvider added — replaces direct File:// URI sharing (crashes on API 24+)
+    5. Duplicate DebugActivity declaration removed
+    6. org.apache.http.legacy uses-library removed (deprecated; use OkHttp/HttpURLConnection)
+    7. usesCleartextTraffic kept TRUE intentionally (pentesting tool needs HTTP)
+    8. exported attribute added to all Activities (required API 31+)
+    9. networkSecurityConfig added for safe cleartext handling
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Network -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Storage — scoped to API 32 and below; API 33+ uses MediaStore -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+
+    <!-- Other -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- FIX: REQUEST_INSTALL_PACKAGES — kept for APK self-update feature -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <application
+        android:name=".HackBarApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.HackBar"
+        android:largeHeap="true"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true">
+
+        <!-- SPLASH / MAIN -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.HackBar.Splash"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- Deep link support: open URLs in HackBar -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+
+        <!-- PERMISSION GATE -->
+        <activity
+            android:name=".PermissionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.HackBar.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- MAIN BROWSER / HACKBAR -->
+        <activity
+            android:name=".HackbarActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.HackBar.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- ADMIN PANEL FINDER -->
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.HackBar.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- CUSTOM QUERY EDITOR -->
+        <activity
+            android:name=".CustomqueryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.HackBar.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- QUERY NOTE -->
+        <activity
+            android:name=".QueryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.HackBar.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- WEB TOOLS -->
+        <activity
+            android:name=".WebtoolActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.HackBar.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- SETTINGS -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.HackBar.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- ABOUT -->
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.HackBar.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- DEBUG (single declaration — FIX: was declared twice) -->
+        <activity
+            android:name=".DebugActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.HackBar.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- FIX: FileProvider replaces direct File:// URIs (crashes on API 24+) -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+</manifest>
