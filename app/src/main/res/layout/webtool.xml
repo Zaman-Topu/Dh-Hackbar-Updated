@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<?xml version='1.0' encoding='utf-8'?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
     <LinearLayout android:orientation="vertical" android:id="@+id/background" android:layout_width="match_parent" android:layout_height="match_parent">
         <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/topbar" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
-            <ImageView android:id="@+id/back" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
-            <TextView android:textSize="18.0sp" android:id="@+id/activityname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:text="Click" android:singleLine="true" android:layout_weight="1.0" />
-            <ImageView android:id="@+id/note" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/back" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:src="@android:drawable/ic_menu_revert" android:scaleType="fitCenter" />
+            <TextView android:textSize="18.0sp" android:id="@+id/activityname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:text="DroidHack Pro" android:singleLine="true" android:layout_weight="1.0" />
+            <ImageView android:id="@+id/note" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:src="@android:drawable/ic_menu_edit" android:scaleType="fitCenter" />
         </LinearLayout>
         <ProgressBar android:id="@+id/progressbar" android:layout_width="match_parent" android:layout_height="wrap_content" android:indeterminate="false" style="?android:progressBarStyleHorizontal" />
         <LinearLayout android:orientation="vertical" android:id="@+id/webviewcontainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
@@ -13,4 +12,3 @@
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
-
