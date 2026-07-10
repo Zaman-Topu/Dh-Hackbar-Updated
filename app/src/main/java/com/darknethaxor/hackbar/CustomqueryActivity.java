@@ -1,187 +1,154 @@
 package com.darknethaxor.hackbar;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
- * CustomqueryActivity — List of saved custom queries
- *
- * FIXES APPLIED:
- * 1. extends AppCompatActivity (was plain Activity)
- * 2. ListView → RecyclerView (ListView deprecated, poor performance)
- *    Original: ArrayAdapter<String> with ListView
- *    Fixed: RecyclerView with QueryListAdapter
- * 3. ImageView FAB → FloatingActionButton (proper touch target, elevation, ripple)
- * 4. apply() replaces commit()
- * 5. Null-safe JSON parsing (Gson.fromJson can return null on malformed data)
- * 6. Empty state properly shown/hidden based on list size
- * 7. Long-press delete → MaterialAlertDialog confirmation
- * 8. MaterialAlertDialogBuilder replaces android.R.style dialog
+ * CustomqueryActivity — Manage Custom Payloads
+ * Reverted to original UI (ListView), uses modern SharedPreferences logic.
  */
 public class CustomqueryActivity extends AppCompatActivity {
 
-    private static final String PREF_QUERIES = "custom_queries";
-    private static final String PREFS_NAME   = "hackbar_prefs";
-    private static final int    REQUEST_EDIT = 200;
-
-    private RecyclerView recyclerView;
-    private TextView tvEmpty;
-    private FloatingActionButton fabAdd;
+    private static final String PREF_NAME = "custom_queries";
     private SharedPreferences prefs;
-    private ArrayList<HashMap<String, Object>> queryList;
-    private QueryListAdapter adapter;
+
+    private ImageView btnBack, btnAdd;
+    private TextView tvActivityName, tvNotFound;
+    private ListView listView;
+    
+    private ArrayList<String> queryNames = new ArrayList<>();
+    private QueryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customquery);
+        setContentView(R.layout.customquery); // Original layout
 
-        prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
         bindViews();
-        loadAndDisplay();
+        loadQueries();
     }
 
     private void bindViews() {
-        ImageView btnBack = findViewById(R.id.back);
-        recyclerView      = findViewById(R.id.listview);
-        tvEmpty           = findViewById(R.id.notfoundtext);
-        fabAdd            = findViewById(R.id.add);
+        btnBack = findViewById(R.id.back);
+        btnAdd = findViewById(R.id.add);
+        tvActivityName = findViewById(R.id.activityname);
+        tvNotFound = findViewById(R.id.notfoundtext);
+        listView = findViewById(R.id.listview);
 
-        btnBack.setOnClickListener(v -> {
-            finish();
-            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-        });
+        tvActivityName.setText("Custom Queries");
+        tvNotFound.setText("No custom queries added yet.\nClick '+' to add one.");
 
-        fabAdd.setOnClickListener(v -> openQueryEditor("new", -1));
+        btnBack.setOnClickListener(v -> finish());
+        btnAdd.setOnClickListener(v -> showAddDialog());
+
+        adapter = new QueryAdapter(this, queryNames);
+        listView.setAdapter(adapter);
     }
 
-    @SuppressWarnings("unchecked")
-    private void loadAndDisplay() {
-        String json = prefs.getString(PREF_QUERIES, "");
-        if (json.isEmpty()) {
-            queryList = new ArrayList<>();
+    private void loadQueries() {
+        queryNames.clear();
+        Map<String, ?> allEntries = prefs.getAll();
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            queryNames.add(entry.getKey());
+        }
+        
+        if (queryNames.isEmpty()) {
+            tvNotFound.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
         } else {
-            try {
-                Type type = new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType();
-                queryList = new Gson().fromJson(json, type);
-                if (queryList == null) queryList = new ArrayList<>();
-            } catch (Exception e) {
-                queryList = new ArrayList<>();
+            tvNotFound.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    private void showAddDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add Custom Query");
+
+        View view = getLayoutInflater().inflate(R.layout.query, null);
+        builder.setView(view);
+
+        EditText etName = view.findViewById(R.id.title);
+        EditText etPayload = view.findViewById(R.id.query);
+        etName.setHint("Query Name");
+        etPayload.setHint("Payload String");
+
+        builder.setPositiveButton("Save", (dialog, which) -> {
+            String name = etName.getText().toString().trim();
+            String payload = etPayload.getText().toString().trim();
+            if (!name.isEmpty() && !payload.isEmpty()) {
+                prefs.edit().putString(name, payload).apply();
+                loadQueries();
+                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Name and payload cannot be empty", Toast.LENGTH_SHORT).show();
             }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
+    private void deleteQuery(String name) {
+        new AlertDialog.Builder(this)
+            .setTitle("Delete")
+            .setMessage("Are you sure you want to delete '" + name + "'?")
+            .setPositiveButton("Yes", (d, w) -> {
+                prefs.edit().remove(name).apply();
+                loadQueries();
+                Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+            })
+            .setNegativeButton("No", null)
+            .show();
+    }
+
+    private class QueryAdapter extends BaseAdapter {
+        private final Context context;
+        private final ArrayList<String> items;
+
+        QueryAdapter(Context context, ArrayList<String> items) {
+            this.context = context;
+            this.items = items;
         }
+        @Override public int getCount() { return items.size(); }
+        @Override public Object getItem(int position) { return items.get(position); }
+        @Override public long getItemId(int position) { return position; }
 
-        // FIX: RecyclerView with custom adapter replaces ListView + ArrayAdapter
-        adapter = new QueryListAdapter(
-                queryList,
-                // Click → use query (return payload to HackbarActivity)
-                index -> {
-                    String body = queryList.get(index).get("body") != null
-                            ? queryList.get(index).get("body").toString() : "";
-                    Intent result = new Intent();
-                    result.putExtra("payload", body);
-                    setResult(RESULT_OK, result);
-                    finish();
-                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                },
-                // Long-press → edit or delete
-                index -> showQueryOptions(index)
-        );
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                // We use listitem.xml for simplicity as per original UI
+                convertView = LayoutInflater.from(context).inflate(R.layout.listitem, parent, false);
+            }
+            TextView tv = convertView.findViewById(R.id.text);
+            String name = items.get(position);
+            String payload = prefs.getString(name, "");
+            tv.setText(name + "\n" + payload);
+            
+            convertView.setOnLongClickListener(v -> {
+                deleteQuery(name);
+                return true;
+            });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        updateEmptyState();
-    }
-
-    private void showQueryOptions(int index) {
-        String title = queryList.get(index).get("title") != null
-                ? queryList.get(index).get("title").toString() : "Query";
-
-        new MaterialAlertDialogBuilder(this)
-                .setTitle(title)
-                .setItems(new String[]{"Edit", "Delete"}, (dialog, which) -> {
-                    if (which == 0) {
-                        openQueryEditor("edit", index);
-                    } else {
-                        confirmDelete(index);
-                    }
-                })
-                .show();
-    }
-
-    private void confirmDelete(int index) {
-        new MaterialAlertDialogBuilder(this)
-                .setTitle("Delete Query")
-                .setMessage("Are you sure you want to delete this query?")
-                .setPositiveButton("Delete", (d, w) -> deleteQuery(index))
-                .setNegativeButton(getString(R.string.action_cancel), null)
-                .show();
-    }
-
-    private void deleteQuery(int index) {
-        queryList.remove(index);
-        saveQueryList();
-        adapter.notifyItemRemoved(index);
-        updateEmptyState();
-        Toast.makeText(this, getString(R.string.query_deleted), Toast.LENGTH_SHORT).show();
-    }
-
-    private void openQueryEditor(String mode, int index) {
-        Intent intent = new Intent(this, QueryActivity.class);
-        intent.putExtra(QueryActivity.EXTRA_MODE, mode);
-        if (index >= 0) intent.putExtra(QueryActivity.EXTRA_INDEX, String.valueOf(index));
-        startActivityForResult(intent, REQUEST_EDIT);
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_EDIT) {
-            // Reload list after edit
-            loadAndDisplay();
+            return convertView;
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        loadAndDisplay();
-    }
-
-    private void saveQueryList() {
-        // FIX: apply() instead of commit()
-        prefs.edit().putString(PREF_QUERIES, new Gson().toJson(queryList)).apply();
-    }
-
-    private void updateEmptyState() {
-        boolean empty = queryList == null || queryList.isEmpty();
-        recyclerView.setVisibility(empty ? View.GONE : View.VISIBLE);
-        tvEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 }

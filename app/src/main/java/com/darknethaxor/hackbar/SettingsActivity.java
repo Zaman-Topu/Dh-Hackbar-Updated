@@ -1,97 +1,98 @@
 package com.darknethaxor.hackbar;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
+import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 
 /**
  * SettingsActivity
- *
- * FIXES APPLIED:
- * 1. extends AppCompatActivity (was plain Activity)
- * 2. SwitchMaterial replaces deprecated Switch widget
- * 3. SharedPreferences.commit() → apply() (blocks main thread)
- * 4. NestedScrollView used for proper CoordinatorLayout compat
- * 5. Clear data now shows MaterialAlertDialog confirmation
- * 6. All obfuscated strings decoded and replaced
- * 7. SeekBar replaces spinner for text size (better UX)
- * 8. WindowInsetsController replaces setSystemUiVisibility
+ * Reverted to original UI, using standard Android Switch and SeekBar.
  */
 public class SettingsActivity extends AppCompatActivity {
 
-    private static final String PREFS_NAME       = "hackbar_prefs";
-    private static final String PREF_SAVE_URL    = "save_last_url";
-    private static final String PREF_TEXT_SIZE   = "text_size";
-    private static final String PREF_VIEW_SOURCE = "view_source_method";
+    private static final String PREFS_NAME = "hackbar_prefs";
+    private static final String PREF_SAVE_URL = "save_last_url";
+    private static final String PREF_TEXT_SIZE = "text_size";
 
     private SharedPreferences prefs;
 
-    // Views
-    private SwitchMaterial switchSaveUrl;
+    private ImageView btnBack;
+    private Switch switchSaveUrl;
     private SeekBar seekTextSize;
-    private TextView tvViewSourceMethod;
-    private TextView tvClearData;
-
-    private final String[] viewSourceMethods = {"External Browser", "Internal Viewer", "Raw Text"};
+    private TextView tvClearData, tvActivityName, tvSaveLastUrlSetting, tvSaveLastUrlDetails;
+    private TextView tvTextSizeSetting, tvTextSizeDetails, tvViewSourceSetting, tvViewSourceMethod;
+    private LinearLayout viewSourceLinear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.settings); // Original layout
 
         prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
         bindViews();
         loadSettings();
-        setupClickListeners();
+        setupListeners();
     }
 
     private void bindViews() {
-        ImageView btnBack     = findViewById(R.id.back);
-        switchSaveUrl         = findViewById(R.id.savelasturlswitch);
-        seekTextSize          = findViewById(R.id.textsizeseekbar);
-        tvViewSourceMethod    = findViewById(R.id.viewsourcemethod);
-        tvClearData           = findViewById(R.id.cleardatasetting);
+        btnBack = findViewById(R.id.back);
+        tvActivityName = findViewById(R.id.activityname);
 
-        btnBack.setOnClickListener(v -> {
-            finish();
-            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-        });
+        switchSaveUrl = findViewById(R.id.savelasturlswitch);
+        seekTextSize = findViewById(R.id.textsizeseekbar);
+        tvClearData = findViewById(R.id.cleardatasetting);
+        
+        viewSourceLinear = findViewById(R.id.viewsourcelinear);
+        tvViewSourceMethod = findViewById(R.id.viewsourcemethod);
+        
+        // These will literally say "Fuck" because of the old XML, but binding them anyway
+        tvSaveLastUrlSetting = findViewById(R.id.savelasturlsetting);
+        tvSaveLastUrlDetails = findViewById(R.id.savelasturldetails);
+        tvTextSizeSetting = findViewById(R.id.textsizesetting);
+        tvTextSizeDetails = findViewById(R.id.textsizedetails);
+        tvViewSourceSetting = findViewById(R.id.viewsourcesetting);
+        
+        // We can manually set the texts here to fix the "Fuck" issue even though the XML has it
+        tvActivityName.setText("Settings");
+        tvSaveLastUrlSetting.setText("Save Last URL");
+        tvSaveLastUrlDetails.setText("Restore the last visited URL on startup");
+        tvTextSizeSetting.setText("Text Size");
+        tvTextSizeDetails.setText("Adjust the WebView text size");
+        tvViewSourceSetting.setText("View Source Method");
+        tvClearData.setText("Clear App Data");
     }
 
     private void loadSettings() {
-        // Save Last URL switch
-        boolean saveLast = prefs.getString(PREF_SAVE_URL, "false").equals("true");
-        switchSaveUrl.setChecked(saveLast);
+        boolean saveUrl = "true".equals(prefs.getString(PREF_SAVE_URL, "false"));
+        switchSaveUrl.setChecked(saveUrl);
 
-        // Text size seekbar
-        int textSize = Integer.parseInt(prefs.getString(PREF_TEXT_SIZE, "1"));
+        int textSize = 1;
+        try {
+            textSize = Integer.parseInt(prefs.getString(PREF_TEXT_SIZE, "1"));
+        } catch (NumberFormatException ignored) {}
         seekTextSize.setProgress(textSize);
-
-        // View source method
-        int method = Integer.parseInt(prefs.getString(PREF_VIEW_SOURCE, "0"));
-        tvViewSourceMethod.setText(viewSourceMethods[method]);
+        
+        tvViewSourceMethod.setText("App"); // Hardcoded default for now
     }
 
-    private void setupClickListeners() {
-        // Save Last URL — switch listener
-        switchSaveUrl.setOnCheckedChangeListener((btn, checked) -> {
-            // FIX: apply() instead of commit() — non-blocking
-            prefs.edit().putString(PREF_SAVE_URL, checked ? "true" : "false").apply();
+    private void setupListeners() {
+        btnBack.setOnClickListener(v -> finish());
+
+        switchSaveUrl.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            prefs.edit().putString(PREF_SAVE_URL, isChecked ? "true" : "false").apply();
         });
 
-        // Text Size seekbar
         seekTextSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -103,44 +104,22 @@ public class SettingsActivity extends AppCompatActivity {
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        // View Source Method selector
-        findViewById(R.id.viewsourcelinear).setOnClickListener(v -> {
-            int current = Integer.parseInt(prefs.getString(PREF_VIEW_SOURCE, "0"));
-            new MaterialAlertDialogBuilder(this)
-                    .setTitle(getString(R.string.setting_view_source_method))
-                    .setSingleChoiceItems(viewSourceMethods, current, (dialog, which) -> {
-                        prefs.edit().putString(PREF_VIEW_SOURCE, String.valueOf(which)).apply();
-                        tvViewSourceMethod.setText(viewSourceMethods[which]);
-                        dialog.dismiss();
-                    })
-                    .show();
-        });
-
-        // Clear Data — shows confirmation dialog
         tvClearData.setOnClickListener(v -> {
-            new MaterialAlertDialogBuilder(this)
-                    .setTitle(getString(R.string.setting_clear_data_confirm_title))
-                    .setMessage(getString(R.string.setting_clear_data_confirm_msg))
-                    .setPositiveButton(getString(R.string.action_clear), (dialog, which) -> {
-                        prefs.edit().clear().apply();
-                        // Also clear WebView data
-                        android.webkit.WebView wv = new android.webkit.WebView(this);
-                        android.webkit.CookieManager.getInstance().removeAllCookies(null);
-                        android.webkit.CookieManager.getInstance().flush();
-                        wv.clearCache(true);
-                        wv.clearFormData();
-                        wv.clearHistory();
-                        wv.destroy();
-                        android.widget.Toast.makeText(this, "Data cleared", android.widget.Toast.LENGTH_SHORT).show();
-                    })
-                    .setNegativeButton(getString(R.string.action_cancel), null)
-                    .show();
+            new AlertDialog.Builder(this)
+                .setTitle("Clear Data")
+                .setMessage("Are you sure you want to clear all app data and cache?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    new WebView(this).clearCache(true);
+                    getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().clear().apply();
+                    getSharedPreferences("custom_queries", Context.MODE_PRIVATE).edit().clear().apply();
+                    Toast.makeText(this, "Data Cleared", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("No", null)
+                .show();
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        
+        viewSourceLinear.setOnClickListener(v -> {
+            Toast.makeText(this, "View source method can't be changed in this version.", Toast.LENGTH_SHORT).show();
+        });
     }
 }

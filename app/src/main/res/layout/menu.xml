@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="horizontal" android:id="@id/backgroun" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <ImageView android:layout_gravity="center_vertical" android:id="@id/menuclose" android:focusable="false" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="3.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
+        <LinearLayout android:orientation="vertical" android:id="@id/verticallinear" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="3.0dp" android:layout_marginTop="8.0dp" android:layout_marginBottom="8.0dp">
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/restartlinear" android:paddingLeft="8.0dp" android:paddingTop="10.0dp" android:paddingRight="16.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <ImageView android:id="@id/restarticon" android:focusable="false" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
+                <TextView android:textSize="14.0sp" android:textColor="#000000" android:id="@id/restarttext" android:focusable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:text="Fuck" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/tutoriallinear" android:paddingLeft="8.0dp" android:paddingTop="10.0dp" android:paddingRight="16.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <ImageView android:id="@id/tutorialicon" android:focusable="false" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
+                <TextView android:textSize="14.0sp" android:textColor="#000000" android:id="@id/tutorialtext" android:focusable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:text="Fuck" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/settingslinear" android:paddingLeft="8.0dp" android:paddingTop="10.0dp" android:paddingRight="16.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <ImageView android:id="@id/settingsicon" android:focusable="false" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
+                <TextView android:textSize="14.0sp" android:textColor="#000000" android:id="@id/settingstext" android:focusable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:text="Fuck" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/aboutlinear" android:paddingLeft="8.0dp" android:paddingTop="10.0dp" android:paddingRight="16.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <ImageView android:id="@id/abouticon" android:focusable="false" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
+                <TextView android:textSize="14.0sp" android:textColor="#000000" android:id="@id/abouttext" android:focusable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:text="Fuck" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/sharelinear" android:paddingLeft="8.0dp" android:paddingTop="10.0dp" android:paddingRight="16.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <ImageView android:id="@id/shareicon" android:focusable="false" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
+                <TextView android:textSize="14.0sp" android:textColor="#000000" android:id="@id/sharetext" android:focusable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:text="Fuck" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/exitlinear" android:paddingLeft="8.0dp" android:paddingTop="10.0dp" android:paddingRight="16.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <ImageView android:id="@id/exiticon" android:focusable="false" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
+                <TextView android:textSize="14.0sp" android:textColor="#000000" android:id="@id/exittext" android:focusable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:text="Fuck" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

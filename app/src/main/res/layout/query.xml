@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:id="@id/background" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/topbar" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <ImageView android:id="@id/back" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
+            <TextView android:textSize="18.0sp" android:textColor="#000000" android:id="@id/activityname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:text="Fuck" android:singleLine="true" android:layout_weight="1.0" />
+            <TextView android:textSize="16.0sp" android:textColor="#000000" android:id="@id/use" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:text="Fuck" />
+            <ImageView android:id="@id/save" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/hr0" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="1.0dp" />
+        <EditText android:textSize="20.0sp" android:textColor="#000000" android:textColorHint="#000000" android:gravity="center_horizontal" android:id="@id/titlefield" android:paddingLeft="16.0dp" android:paddingTop="8.0dp" android:paddingRight="16.0dp" android:paddingBottom="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="8.0dp" android:layout_marginBottom="4.0dp" android:hint="Fuck" android:singleLine="true" />
+        <EditText android:textSize="16.0sp" android:textColor="#000000" android:textColorHint="#000000" android:gravity="left|top" android:id="@id/bodyfield" android:padding="16.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="8.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="8.0dp" android:layout_marginBottom="8.0dp" android:hint="Fuck" />
+    </LinearLayout>
+</LinearLayout>

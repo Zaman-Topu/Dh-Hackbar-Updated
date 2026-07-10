@@ -2,23 +2,21 @@ package com.darknethaxor.hackbar;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -28,16 +26,7 @@ import java.util.concurrent.Executors;
 
 /**
  * AdminActivity — Admin Panel Finder + Scanner
- *
- * FIXES APPLIED:
- * 1. extends AppCompatActivity (was plain Activity)
- * 2. AsyncTask REMOVED → ExecutorService + Handler (modern threading)
- * 3. HttpURLConnection used instead of deprecated Apache HttpClient
- * 4. ListView → RecyclerView
- * 5. ProgressDialog → LinearProgressIndicator in layout
- * 6. All obfuscated strings decoded
- * 7. Proper cancellation on back press (executor.shutdownNow())
- * 8. apply() replaces commit()
+ * Reverted to original UI (ListView), keeps modern background thread logic.
  */
 public class AdminActivity extends AppCompatActivity {
 
@@ -57,13 +46,13 @@ public class AdminActivity extends AppCompatActivity {
     };
 
     private EditText urlField;
-    private LinearProgressIndicator progressBar;
-    private RecyclerView recyclerView;
-    private TextView tvEmpty, tvStatus;
+    private ProgressBar progressBar;
+    private ListView listView;
+    private TextView tvEmpty, tvFind;
     private ImageView btnBack;
 
     private final ArrayList<String> results = new ArrayList<>();
-    private AdminResultAdapter adapter;
+    private ResultAdapter adapter;
     private ExecutorService executor;
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private boolean scanning = false;
@@ -72,7 +61,7 @@ public class AdminActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.admin); // Original layout
 
         bindViews();
 
@@ -86,23 +75,27 @@ public class AdminActivity extends AppCompatActivity {
         btnBack     = findViewById(R.id.back);
         urlField    = findViewById(R.id.urlfield);
         progressBar = findViewById(R.id.progressbar);
-        recyclerView = findViewById(R.id.listview);
+        listView    = findViewById(R.id.listview);
         tvEmpty     = findViewById(R.id.hinttext);
+        tvFind      = findViewById(R.id.find);
 
         btnBack.setOnClickListener(v -> onBackPressed());
 
-        // FIX: RecyclerView + Adapter replaces ListView + ArrayAdapter
-        adapter = new AdminResultAdapter(results, url -> openUrl(url));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        adapter = new ResultAdapter(this, results);
+        listView.setAdapter(adapter);
+        
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            openUrl(results.get(position));
+        });
 
-        findViewById(R.id.find).setOnClickListener(v -> startScan());
+        tvFind.setOnClickListener(v -> startScan());
+        progressBar.setVisibility(View.GONE);
     }
 
     private void startScan() {
         String rawUrl = urlField.getText().toString().trim();
         if (rawUrl.isEmpty()) {
-            Toast.makeText(this, getString(R.string.error_invalid_url), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!rawUrl.startsWith("http://") && !rawUrl.startsWith("https://")) {
@@ -110,7 +103,6 @@ public class AdminActivity extends AppCompatActivity {
             urlField.setText(rawUrl);
         }
 
-        // Extract base URL (remove path)
         String baseUrl;
         try {
             URL url = new URL(rawUrl);
@@ -129,8 +121,7 @@ public class AdminActivity extends AppCompatActivity {
         totalChecked = 0;
         scanning = true;
 
-        // FIX: ExecutorService replaces deprecated AsyncTask
-        executor = Executors.newFixedThreadPool(5); // 5 concurrent checks
+        executor = Executors.newFixedThreadPool(5); 
         final String finalBaseUrl = baseUrl;
 
         for (String path : ADMIN_PATHS) {
@@ -143,9 +134,9 @@ public class AdminActivity extends AppCompatActivity {
                     progressBar.setProgress(totalChecked);
                     if (found) {
                         results.add(checkUrl);
-                        adapter.notifyItemInserted(results.size() - 1);
+                        adapter.notifyDataSetChanged();
                         tvEmpty.setVisibility(View.GONE);
-                        recyclerView.setVisibility(View.VISIBLE);
+                        listView.setVisibility(View.VISIBLE);
                     }
                     if (totalChecked >= ADMIN_PATHS.length) {
                         scanFinished();
@@ -155,10 +146,6 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * FIX: HttpURLConnection replaces deprecated Apache HttpClient
-     * Returns true if the URL returns HTTP 200 or 301/302 (found)
-     */
     private boolean checkUrl(String urlStr) {
         try {
             URL url = new URL(urlStr);
@@ -167,8 +154,7 @@ public class AdminActivity extends AppCompatActivity {
             conn.setConnectTimeout(5000);
             conn.setReadTimeout(5000);
             conn.setInstanceFollowRedirects(false);
-            conn.setRequestProperty("User-Agent",
-                    "Mozilla/5.0 (compatible; DH-HackBar/2.0)");
+            conn.setRequestProperty("User-Agent", "Mozilla/5.0 (compatible; DH-HackBar/2.0)");
             int responseCode = conn.getResponseCode();
             conn.disconnect();
             return responseCode == 200 || responseCode == 301 || responseCode == 302;
@@ -181,7 +167,7 @@ public class AdminActivity extends AppCompatActivity {
         scanning = false;
         progressBar.setVisibility(View.GONE);
         if (results.isEmpty()) {
-            tvEmpty.setText(getString(R.string.admin_no_results));
+            tvEmpty.setText("No Admin Panels Found");
             tvEmpty.setVisibility(View.VISIBLE);
         }
         Toast.makeText(this, "Scan complete: " + results.size() + " panel(s) found", Toast.LENGTH_LONG).show();
@@ -189,18 +175,17 @@ public class AdminActivity extends AppCompatActivity {
 
     private void openUrl(String url) {
         Intent intent = new Intent(this, WebtoolActivity.class);
-        intent.putExtra(WebtoolActivity.EXTRA_URL, url);
-        intent.putExtra(WebtoolActivity.EXTRA_TITLE, "Admin Panel");
+        intent.putExtra("url", url);
+        intent.putExtra("title", "Admin Panel");
         startActivity(intent);
     }
 
     @Override
     public void onBackPressed() {
         scanning = false;
-        if (executor != null) executor.shutdownNow(); // FIX: cancel background tasks
+        if (executor != null) executor.shutdownNow(); 
         mainHandler.removeCallbacksAndMessages(null);
         finish();
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     @Override
@@ -209,5 +194,29 @@ public class AdminActivity extends AppCompatActivity {
         scanning = false;
         if (executor != null) executor.shutdownNow();
         mainHandler.removeCallbacksAndMessages(null);
+    }
+
+    // Custom adapter using the original listitem.xml
+    private static class ResultAdapter extends BaseAdapter {
+        private final Context context;
+        private final ArrayList<String> items;
+        
+        ResultAdapter(Context context, ArrayList<String> items) {
+            this.context = context;
+            this.items = items;
+        }
+        @Override public int getCount() { return items.size(); }
+        @Override public Object getItem(int position) { return items.get(position); }
+        @Override public long getItemId(int position) { return position; }
+        
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.listitem, parent, false);
+            }
+            TextView tv = convertView.findViewById(R.id.text);
+            tv.setText(items.get(position));
+            return convertView;
+        }
     }
 }
