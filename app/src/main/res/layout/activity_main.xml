@@ -13,12 +13,11 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <!-- Logo perfectly centered with padding so it doesn't crop -->
+        <!-- Logo perfectly centered without padding so it's massive -->
         <ImageView
             android:id="@+id/appicon"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:padding="8dp"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/ic_launcher"
             android:contentDescription="@string/app_name"
