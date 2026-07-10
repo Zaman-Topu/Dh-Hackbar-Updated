@@ -6,6 +6,8 @@ import android.content.Context;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import com.google.android.material.color.DynamicColors;
+
 /**
  * HackBarApplication — Application class
  *
@@ -25,6 +27,9 @@ public class HackBarApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        
+        // Enable Material 3 Dynamic Colors
+        DynamicColors.applyToActivitiesIfAvailable(this);
 
         // Store default handler before overriding
         defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
