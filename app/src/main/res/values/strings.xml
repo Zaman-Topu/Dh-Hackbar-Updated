@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DH HackBar</string>
+    <string name="app_name">DroidHack Pro</string>
     <string name="app_version">v2.0</string>
     <string name="app_description">Advanced Web Penetration Testing Tool</string>
 
