@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
   xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout android:orientation="vertical" android:id="@id/background" android:layout_width="match_parent" android:layout_height="match_parent" android:weightSum="4.0">
-        <LinearLayout android:gravity="center|bottom" android:orientation="vertical" android:id="@id/logocontainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
-            <ImageView android:id="@id/appicon" android:layout_width="120.0dp" android:layout_height="120.0dp" android:layout_marginBottom="12.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
-            <TextView android:textSize="30.0sp" android:textColor="#000000" android:gravity="center_horizontal" android:id="@id/appname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="Fuck Modders" />
+    <LinearLayout android:orientation="vertical" android:id="@+id/background" android:layout_width="match_parent" android:layout_height="match_parent" android:weightSum="4.0">
+        <LinearLayout android:gravity="center|bottom" android:orientation="vertical" android:id="@+id/logocontainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
+            <ImageView android:id="@+id/appicon" android:layout_width="120.0dp" android:layout_height="120.0dp" android:layout_marginBottom="12.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
+            <TextView android:textSize="30.0sp" android:textColor="#000000" android:gravity="center_horizontal" android:id="@+id/appname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:text="Fuck Modders" />
         </LinearLayout>
-        <LinearLayout android:gravity="center|bottom" android:orientation="vertical" android:id="@id/textcontainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="3.0">
-            <TextView android:textSize="12.0sp" android:textColor="#000000" android:id="@id/from" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="2.0dp" android:text="Fuck" />
-            <TextView android:textSize="16.0sp" android:textColor="#000000" android:gravity="center_horizontal" android:id="@id/authorname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:layout_marginBottom="36.0dp" android:text="Fuck Modders" />
+        <LinearLayout android:gravity="center|bottom" android:orientation="vertical" android:id="@+id/textcontainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="3.0">
+            <TextView android:textSize="12.0sp" android:textColor="#000000" android:id="@+id/from" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="2.0dp" android:text="Fuck" />
+            <TextView android:textSize="16.0sp" android:textColor="#000000" android:gravity="center_horizontal" android:id="@+id/authorname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dp" android:layout_marginBottom="36.0dp" android:text="Fuck Modders" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
+
