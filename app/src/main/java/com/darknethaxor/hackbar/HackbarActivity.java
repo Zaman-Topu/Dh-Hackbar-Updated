@@ -211,6 +211,11 @@ public class HackbarActivity extends AppCompatActivity {
         settings.setAllowFileAccessFromFileURLs(false);
         settings.setAllowUniversalAccessFromFileURLs(false);
 
+        // Crucial for Pentesting: Allow Mixed Content (HTTP inside HTTPS)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+
         applyTextSizeToWebView(settings);
         webView.setWebViewClient(new HackBarWebViewClient());
         webView.setWebChromeClient(new HackBarWebChromeClient());

@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
-    <LinearLayout android:orientation="vertical" android:id="@+id/background" android:layout_width="match_parent" android:layout_height="match_parent">
-        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/topbar" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
-            <ImageView android:id="@+id/back" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:src="@android:drawable/ic_menu_revert" android:scaleType="fitCenter" />
+    <LinearLayout android:orientation="vertical" android:id="@+id/background" android:layout_width="match_parent" android:layout_height="match_parent" android:background="?android:attr/colorBackground">
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/topbar" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?attr/colorSurface" android:elevation="4dp">
+            <ImageView android:id="@+id/back" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/ic_undo" android:scaleType="fitCenter" />
             <TextView android:textSize="18.0sp" android:id="@+id/activityname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:text="DroidHack Pro" android:singleLine="true" android:layout_weight="1.0" />
         </LinearLayout>
         <LinearLayout android:orientation="vertical" android:id="@+id/hr0" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="1.0dp" />
