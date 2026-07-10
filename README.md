@@ -125,6 +125,31 @@ cd Dh-Hackbar-Updated
 
 ---
 
+## 💡 Future Roadmap (God-Level Features)
+
+We are constantly brainstorming ways to make this the ultimate mobile pentesting framework. Some of the "God-Level" ideas planned for future updates include:
+
+- **Mini Local Proxy / Interceptor:** Intercept and modify HTTP headers and POST data on the fly (similar to Burp Suite, right on your phone).
+- **Injectable DevTools (Eruda):** One-tap injection of full Developer Tools (Network, Console, Elements) into any webpage you browse.
+- **Automated Fuzzer:** Enter a parameter and let the app silently spray 50+ payloads in the background to detect SQLi/XSS automatically.
+- **SSRF & SSTI Payloads:** Dedicated categories for modern cloud and template vulnerabilities.
+- **JWT Decoder & Editor:** Decode, edit, and forge JWT signatures (`Algorithm: None`) directly within the app.
+
+---
+
+## 🤝 Contributing & Known Issues
+
+**We need your help!** DroidHack Pro is a massive toolkit and, by the very nature of being a hacking tool, **the app itself may contain bugs, unhandled exceptions, or its own vulnerabilities.**
+
+If you are an Android developer or a security researcher, your contributions are highly welcome:
+- Found a bug or a crash? Open an **Issue**.
+- Have a new payload or a god-level feature idea? Open a **Pull Request**.
+- Want to improve the UI/UX or add new tools? **Fork the repo** and contribute!
+
+Let's build the best Android Pentesting tool together.
+
+---
+
 ## 🤝 Credits & Acknowledgements
 
 ### Original Project
