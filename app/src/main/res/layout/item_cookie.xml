@@ -37,7 +37,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
-                android:src="@android:drawable/ic_menu_delete"
+                android:src="@drawable/ic_delete"
                 android:contentDescription="Delete Cookie"
                 app:tint="@color/colorAccent" />
         </LinearLayout>

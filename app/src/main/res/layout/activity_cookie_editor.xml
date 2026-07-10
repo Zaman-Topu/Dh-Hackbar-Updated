@@ -19,7 +19,7 @@
             android:id="@+id/btnBack"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_revert"
+            android:src="@drawable/ic_undo"
             android:contentDescription="Back" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:id="@+id/btnAddCookie"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_add"
+            android:src="@drawable/ic_add"
             android:contentDescription="Add Cookie" />
     </LinearLayout>
 
