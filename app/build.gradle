@@ -35,30 +35,17 @@ android {
 }
 
 dependencies {
-    // AndroidX core — replaces old android.support.*
+    // AndroidX core
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.core:core:1.13.1'
-    implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.activity:activity:1.9.0'
 
-    // Material Design 3 (replaces android.support.design)
+    // Material Design 3
     implementation 'com.google.android.material:material:1.12.0'
 
-    // ConstraintLayout (replaces nested LinearLayouts)
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
-    // RecyclerView (replaces ListView)
+    // RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
 
-    // ViewPager2
-    implementation 'androidx.viewpager2:viewpager2:1.1.0'
-
-    // Gson for JSON (already used in app)
+    // Gson
     implementation 'com.google.code.gson:gson:2.10.1'
-
-    // WorkManager — replaces deprecated AsyncTask background operations
-    implementation 'androidx.work:work-runtime:2.9.0'
-
-    // Preference (modern settings)
-    implementation 'androidx.preference:preference:1.2.1'
 }
