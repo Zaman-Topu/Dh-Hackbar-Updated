@@ -107,6 +107,16 @@
             android:hardwareAccelerated="true"
             android:theme="@style/Theme.HackBar.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
+            
+        <!-- COOKIE EDITOR -->
+        <activity
+            android:name=".CookieEditorActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.HackBar.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- QUERY NOTE -->
         <activity

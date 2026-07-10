@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/colorSurface"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etCookieName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Name"
+                android:textColor="@color/colorOnSurface"
+                android:textColorHint="@color/colorOnSurfaceVariant"
+                android:textSize="14sp"
+                android:background="@drawable/edittext_bg"
+                android:padding="8dp" />
+
+            <ImageView
+                android:id="@+id/btnDeleteCookie"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:src="@android:drawable/ic_menu_delete"
+                android:contentDescription="Delete Cookie"
+                app:tint="@color/colorAccent" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/etCookieValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Value"
+            android:textColor="@color/colorOnSurface"
+            android:textColorHint="@color/colorOnSurfaceVariant"
+            android:textSize="14sp"
+            android:background="@drawable/edittext_bg"
+            android:padding="8dp"
+            android:minLines="2"
+            android:gravity="top|start" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

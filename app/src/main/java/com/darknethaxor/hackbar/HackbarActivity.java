@@ -81,7 +81,7 @@ public class HackbarActivity extends AppCompatActivity {
     private TextView tvPolygon, tvWritablePath, tvAuthBypass, tvUserPrivileges, tvUploader, tvExtractLinks;
     // Row 4
     private TextView tvFind, tvViewSource, tvPostData, tvTamperData, tvJavascript;
-    private TextView tvNoRedirect, tvAdminFinder, tvAdminScanner, tvWebTools, tvUserAgent;
+    private TextView tvNoRedirect, tvAdminFinder, tvAdminScanner, tvWebTools, tvUserAgent, tvCookieEditor;
 
     // State
     private SharedPreferences prefs;
@@ -188,6 +188,7 @@ public class HackbarActivity extends AppCompatActivity {
         tvAdminScanner   = findViewById(R.id.adminscanner);
         tvWebTools       = findViewById(R.id.webtools);
         tvUserAgent      = findViewById(R.id.useragent);
+        tvCookieEditor   = findViewById(R.id.cookieeditor);
         
         // Hide elements that start hidden
         findLayout.setVisibility(View.GONE);
@@ -285,6 +286,7 @@ public class HackbarActivity extends AppCompatActivity {
         tvAdminScanner.setOnClickListener(v -> openAdminFinder(true));
         tvWebTools.setOnClickListener(v -> openWebTools());
         tvUserAgent.setOnClickListener(v -> showUserAgentDialog());
+        tvCookieEditor.setOnClickListener(v -> openCookieEditor());
     }
 
     private void setupFindInPage() {
@@ -617,5 +619,24 @@ public class HackbarActivity extends AppCompatActivity {
         }
         executor.shutdownNow();
         mainHandler.removeCallbacksAndMessages(null);
+    }
+    private void openCookieEditor() {
+        if (TextUtils.isEmpty(currentUrl)) {
+            showToast("Please load a URL first.");
+            return;
+        }
+        Intent intent = new Intent(this, CookieEditorActivity.class);
+        intent.putExtra(CookieEditorActivity.EXTRA_URL, currentUrl);
+        startActivityForResult(intent, 1002);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1002 && resultCode == RESULT_OK) {
+            if (data != null && data.getBooleanExtra("RELOAD", false)) {
+                webView.reload();
+            }
+        }
     }
 }
