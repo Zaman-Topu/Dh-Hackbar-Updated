@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.HackBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.HackBar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -8,6 +8,10 @@
         <item name="android:statusBarColor">@color/colorStatusBar</item>
         <item name="android:textColor">@color/colorOnBackground</item>
         <item name="android:textColorHint">#888888</item>
+        
+        <!-- Fix Material dialog crash -->
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
     </style>
 
     <style name="Theme.HackBar.Splash" parent="Theme.HackBar">
