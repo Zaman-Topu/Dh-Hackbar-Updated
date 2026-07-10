@@ -4,11 +4,11 @@
     <LinearLayout android:orientation="vertical" android:id="@+id/background" android:layout_width="match_parent" android:layout_height="match_parent">
         <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/topbar" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
             <ImageView android:id="@+id/back" android:layout_width="24.0dp" android:layout_height="24.0dp" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
-            <TextView android:textSize="18.0sp" android:textColor="#000000" android:id="@+id/activityname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:text="Fuck" android:singleLine="true" android:layout_weight="1.0" />
+            <TextView android:textSize="18.0sp" android:id="@+id/activityname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="6.0dp" android:layout_marginRight="6.0dp" android:text="Click" android:singleLine="true" android:layout_weight="1.0" />
         </LinearLayout>
         <LinearLayout android:orientation="vertical" android:id="@+id/hr0" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="1.0dp" />
         <LinearLayout android:orientation="vertical" android:id="@+id/layer1" android:layout_width="match_parent" android:layout_height="match_parent">
-            <TextView android:textSize="14.0sp" android:textColor="#000000" android:gravity="center" android:id="@+id/notfoundtext" android:layout_width="match_parent" android:layout_height="match_parent" android:text="Fuck" />
+            <TextView android:textSize="14.0sp" android:gravity="center" android:id="@+id/notfoundtext" android:layout_width="match_parent" android:layout_height="match_parent" android:text="Click" />
         </LinearLayout>
         <LinearLayout android:gravity="right|bottom" android:orientation="vertical" android:id="@+id/layer2" android:layout_width="match_parent" android:layout_height="match_parent">
             <ImageView android:id="@+id/add" android:layout_width="56.0dp" android:layout_height="56.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="16.0dp" android:src="@drawable/default_image" android:scaleType="fitCenter" />
