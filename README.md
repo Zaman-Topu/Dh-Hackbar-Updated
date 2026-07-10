@@ -9,8 +9,8 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/Zaman-Topu/Dh-Hackbar-Updated/release.yml?style=for-the-badge&logo=github&label=Build)](https://github.com/Zaman-Topu/Dh-Hackbar-Updated/actions)
 [![Platform](https://img.shields.io/badge/Platform-Android%205.0%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com)
 [![Target SDK](https://img.shields.io/badge/Target%20SDK-34%20(Android%2014)-blue?style=for-the-badge)](https://developer.android.com/tools/releases/platforms)
+[![UI Framework](https://img.shields.io/badge/UI-Material%20Design%203-blueviolet?style=for-the-badge&logo=materialdesign&logoColor=white)](https://m3.material.io)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
-[![Original](https://img.shields.io/badge/Based%20On-DH--HackBar-red?style=for-the-badge&logo=github)](https://github.com/darknethaxor/DH-HackBar)
 
 </div>
 
@@ -18,107 +18,89 @@
 
 ## 📖 What is DroidHack Pro?
 
-**DroidHack Pro** is a fully revived and modernized Android penetration testing toolkit, based on the original **[DH-HackBar](https://github.com/darknethaxor/DH-HackBar)** by **Darknet Haxor**. The original app was an innovative tool that brought browser-based web security testing to Android — but it was abandoned and no longer worked on modern Android versions.
+**DroidHack Pro** is a fully revived, modernized, and highly optimized Android penetration testing toolkit. Originally based on the classic **[DH-HackBar](https://github.com/darknethaxor/DH-HackBar)** by Darknet Haxor, this project brings browser-based web security testing to modern Android devices with a stunning new UI and powerful new features.
 
-This project brings it back to life:
-- ✅ Fully compatible with **Android 5.0 → Android 14 (API 21–34)**
-- ✅ All deprecated Android Support libraries migrated to **AndroidX**
-- ✅ Background tasks rewritten using modern **ExecutorService** (no more AsyncTask crashes)
-- ✅ File sharing updated to use **FileProvider** (no more FileUriExposedException on API 24+)
-- ✅ Original classic UI preserved — no visual changes from the original app
-- ✅ **GitHub Actions CI/CD** automatically builds and releases APK on every push
+This is the ultimate mobile toolkit for Ethical Hackers, Bug Bounty Hunters, and Security Researchers who want to test Web Applications on the go.
+
+### 🌟 What's New in v2.0 (The Pro Update)
+- 🎨 **Google Material Design 3 (Material You):** The entire app UI has been overhauled. It now features sleek *Suggestion Chips*, beautiful *Dynamic Colors* (adapts to your device's wallpaper), and flawless layout proportions.
+- 🍪 **Built-in Cookie Editor:** A fully functional native Cookie Editor! View, add, edit, and delete cookies on the fly for any domain. Essential for session hijacking tests and auth bypasses.
+- 🔓 **Advanced WebView Security Overrides:** Fully enabled **Mixed Content Mode** (HTTP inside HTTPS) and custom DOM storage, ensuring no payloads or external injected scripts get blocked during your pentest.
+- 🚀 **Zero UI Lag / ANR:** Fixed massive legacy layout loops and infinite measuring bugs. The app is now insanely fast and buttery smooth.
+- 📐 **Vector Graphics:** Replaced all pixelated old Holo icons with pure Google Material SVG VectorDrawables.
 
 ---
 
-## ✨ Features
+## ✨ Full Feature List
 
-### 🌐 Built-in Hack Browser
-A full-featured browser powered by Android WebView, specifically designed for web security testing:
-- URL manipulation and parameter injection
+### 🌐 Pentesting Browser (The HackBar)
+A full-featured browser powered by a heavily customized Android WebView, engineered specifically for injecting payloads:
+- URL manipulation and direct parameter injection
+- **[NEW] Built-in Native Cookie Editor (Add/Edit/Delete)**
+- **[NEW] Mixed Content Execution (Allows HTTP scripts inside HTTPS)**
 - Real-time progress indicator
-- Page title display and favicon support
 - Find-in-page functionality
 - POST data injection support
-- No-redirect mode
-- View page source
-- JavaScript console injection
-- Undo / Redo URL history
-- Copy & Paste URL shortcuts
+- No-redirect mode (Intercept Headers)
+- View raw page source
+- JavaScript console injection (`javascript:alert(1)`)
+- Custom User-Agent switcher (Pre-loaded with multiple device UAs)
 
-### 💉 SQL Injection Toolkit
-Pre-loaded with hundreds of tested payloads across multiple categories:
-
-| Category | Description |
-|---|---|
-| **Basic SQLi** | Classic `OR 1=1`, ORDER BY, GROUP BY probes |
-| **Union Select** | Column enumeration and data extraction |
-| **Error Based** | EXTRACTVALUE, UPDATEXML, SLEEP-based detection |
-| **XPath Injection** | Blind XPath extraction payloads |
-| **MSSQL** | `xp_cmdshell`, `WAITFOR DELAY`, sysobjects enumeration |
-| **PostgreSQL** | `pg_sleep`, `COPY TO PROGRAM`, version extraction |
-| **DIOS** | Dump-In-One-Shot single query data extraction |
+### 💉 SQL Injection Toolkit (SQLi)
+Pre-loaded with hundreds of tested payloads across multiple database architectures:
+- **Basic SQLi:** Classic `OR 1=1`, ORDER BY, GROUP BY probes
+- **Union Select:** Column enumeration and data extraction
+- **Error Based:** EXTRACTVALUE, UPDATEXML, SLEEP-based detection
+- **XPath Injection:** Blind XPath extraction payloads
+- **MSSQL:** `xp_cmdshell`, `WAITFOR DELAY`, sysobjects enumeration
+- **PostgreSQL:** `pg_sleep`, `COPY TO PROGRAM`, version extraction
+- **DIOS:** Dump-In-One-Shot single query data extraction (MySQL, MSSQL, Oracle)
 
 ### 🚪 Bypass Payloads
-| Category | Description |
-|---|---|
-| **Auth Bypass** | Login form bypass via SQLi vectors |
-| **Union Select Bypass** | Case mixing, comment injection, URL encoding |
-| **WAF Bypass** | Inline comments, hex encoding, Unicode tricks |
-| **Order By Bypass** | Column order enumeration bypasses |
+- **Auth Bypass:** Login form bypass via SQLi vectors (`admin' --`)
+- **Union Select Bypass:** Case mixing, inline comments (`/*!UNION*/`), URL encoding
+- **WAF Bypass:** Hex encoding, Unicode tricks, statement obfuscation
+- **Order By Bypass:** Column order enumeration bypasses
 
-### 📂 File Inclusion
-| Category | Description |
-|---|---|
-| **LFI** | `/etc/passwd`, PHP filters, proc/self/environ, zip wrappers |
-| **RFI** | Remote shell inclusion via HTTP/FTP |
-| **RCE** | Command injection separators and OS command payloads |
+### 📂 File Inclusion (LFI / RFI / RCE)
+- **LFI (Local File Inclusion):** `/etc/passwd`, PHP base64 filters, `proc/self/environ`, zip wrappers
+- **RFI (Remote File Inclusion):** Remote shell execution via HTTP/FTP
+- **RCE (Remote Code Execution):** Command injection separators (`|`, `;`, `&&`) and OS command payloads
 
-### 🔥 XSS Payloads
+### 🔥 Cross-Site Scripting (XSS)
 Reflected, stored, and DOM-based XSS vectors including:
 - `<script>`, `<img onerror>`, `<svg onload>` tags
 - HTML entity and URL-encoded bypasses
-- JavaScript URI schemes
-- Event-handler based payloads
+- JavaScript URI schemes and Event-handler based payloads
 
-### 🔍 Admin Panel Finder
-Multi-path scanner that tests hundreds of common admin panel URLs against a target domain to discover hidden admin directories automatically.
+### 🔍 Admin Panel Finder & Scanner
+Multi-path scanner that tests hundreds of common admin panel URLs (e.g., `/admin`, `/cpanel`, `/wp-admin`) against a target domain to discover hidden admin directories automatically.
 
 ### 📝 Custom Query Manager
-Save, organize, and reuse your own custom SQL queries and payloads. Supports:
-- Add / Edit / Delete entries
-- Persistent storage across sessions
-- One-tap injection into the URL bar
+Save, organize, and reuse your own custom SQL queries and payloads.
+- Add / Edit / Delete custom payloads.
+- Persistent storage across sessions.
+- One-tap injection directly into the URL bar.
 
 ### 🔧 Encoding & Utilities
-- URL Encode / Decode
 - Base64 Encode / Decode
 - Hex Encode / Decode
 - MD5 Hash Generator
 - Binary & ASCII conversion
 - URL Balancer
-- String extractor
-- Writable path detection
+- String extractor & Writable path detection
 - User privilege check
-- User-Agent switcher
-
-### 🌍 Web Tools
-Integrated web-based tools via in-app browser:
-- Hash Decrypter
-- SQLi Scanner
-- Reverse IP Lookup
-- Sub-domain Checker
-- Polygon tool
 
 ---
 
 ## 📥 Download & Installation
 
 1. Go to the [**Releases**](https://github.com/Zaman-Topu/Dh-Hackbar-Updated/releases) page.
-2. Download the latest `app-debug.apk` or `app-release-unsigned.apk`.
+2. Download the latest `app-debug.apk` (Recommended) or `app-release-unsigned.apk`.
 3. On your Android device, enable **"Install from Unknown Sources"** in Settings.
 4. Install and launch **DroidHack Pro**.
 
-> **Minimum requirement:** Android 5.0 (Lollipop) or higher.
+> **Compatibility:** Android 5.0 (Lollipop) up to Android 14 (API 34).
 
 ---
 
@@ -146,31 +128,20 @@ cd Dh-Hackbar-Updated
 ## 🤝 Credits & Acknowledgements
 
 ### Original Project
-This project is a modernized fork of the original **DH-HackBar** tool:
+This project is a modernized and completely overhauled fork of the original **DH-HackBar** tool:
 
 > **[DH-HackBar](https://github.com/darknethaxor/DH-HackBar)** — by **[Darknet Haxor](https://github.com/darknethaxor)**  
 > *"DH HackBar — Advanced Web Penetration Testing Tool"*
 
-All original UI design, core feature concepts, and penetration testing logic belong to the original author. Full credit goes to **Darknet Haxor** and the Darknet Haxor community.
+All original core feature concepts and penetration testing payload logic belong to the original author. Full credit goes to **Darknet Haxor** and the Darknet Haxor community.
 
 ### DroidHack Pro Team
-
 | Role | Name |
 |---|---|
 | **Original Developer** | Master Java (via Darknet Haxor) |
 | **Modernizer & Maintainer** | Zaman Topu |
 | **Contributor** | Frozen Flame |
 | **Contributor** | Md Jubayer |
-
-### What was changed / modernized?
-- Migrated from Android Support Library → **AndroidX**
-- Replaced deprecated `AsyncTask` → **ExecutorService + Handler**
-- Fixed `FileUriExposedException` using **FileProvider** (Android 7+)
-- Added `android:exported` attributes to all Activities (Android 12+ requirement)
-- Fixed all layout IDs (`@id/` → `@+id/`) for proper AAPT compilation
-- Added `android.useAndroidX=true` & `android.enableJetifier=true` to build config
-- Added **GitHub Actions CI/CD** workflow for automated APK releases
-- App name updated to **DroidHack Pro**
 
 ---
 
