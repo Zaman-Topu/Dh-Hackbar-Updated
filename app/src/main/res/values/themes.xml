@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.HackBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.HackBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Professional Font -->
+        <item name="android:fontFamily">sans-serif</item>
+        
+        <!-- Brand Colors -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="android:statusBarColor">@color/colorStatusBar</item>
-        <item name="android:textColor">@color/colorOnBackground</item>
-        <item name="android:textColorHint">#888888</item>
         
-        <!-- Fix Material dialog crash -->
+        <!-- Backgrounds -->
+        <item name="android:windowBackground">@color/colorBackground</item>
         <item name="colorSurface">@color/colorSurface</item>
+        
+        <!-- Status & Nav Bar -->
+        <item name="android:statusBarColor">@color/colorStatusBar</item>
+        <item name="android:navigationBarColor">@color/colorNavBar</item>
+        
+        <!-- Text Colors -->
+        <item name="android:textColor">@color/colorOnBackground</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="android:textColorHint">@color/colorOnSurfaceVariant</item>
     </style>
 
     <style name="Theme.HackBar.Splash" parent="Theme.HackBar">

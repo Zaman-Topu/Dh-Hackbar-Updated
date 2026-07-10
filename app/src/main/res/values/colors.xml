@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- Professional Ash/Dark Hacker Theme Colors -->
+    <color name="colorPrimary">#202124</color>
+    <color name="colorPrimaryDark">#17181A</color>
+    <color name="colorAccent">#00E676</color> <!-- Neon Hacker Green -->
     
     <!-- Background colors -->
-    <color name="colorBackground">#FFFFFF</color>
-    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorBackground">#202124</color>
+    <color name="colorSurface">#2A2B2E</color>
     
     <!-- Text colors -->
     <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="colorOnBackground">#000000</color>
-    <color name="colorOnSurface">#000000</color>
+    <color name="colorOnBackground">#E8EAED</color>
+    <color name="colorOnSurface">#E8EAED</color>
     
     <!-- Misc -->
-    <color name="colorStatusBar">#303F9F</color>
-    <color name="colorNavBar">#000000</color>
+    <color name="colorStatusBar">#17181A</color>
+    <color name="colorNavBar">#17181A</color>
     
-    <!-- Restored missing aliases for modern layouts -->
-    <color name="colorTopBar">#3F51B5</color>
-    <color name="colorError">#FF0000</color>
-    <color name="colorOnSurfaceVariant">#757575</color>
-    <color name="colorSecondary">#FF4081</color>
-    <color name="colorDivider">#E0E0E0</color>
+    <!-- Layout specific colors -->
+    <color name="colorTopBar">#202124</color>
+    <color name="colorError">#CF6679</color>
+    <color name="colorOnSurfaceVariant">#9AA0A6</color>
+    <color name="colorSecondary">#00E676</color>
+    <color name="colorDivider">#3C4043</color>
 </resources>
