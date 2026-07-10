@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🛡️ HackBar Modernized</h1>
+  <h1>🛡️ DroidHack Pro</h1>
   <p><strong>A Professional Penetration Testing Toolkit for Android</strong></p>
   <img src="https://img.shields.io/github/actions/workflow/status/Zaman-Topu/Dh-Hackbar-Updated/release.yml?style=for-the-badge&logo=github" alt="Build Status"/>
   <img src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Platform" />
@@ -9,7 +9,7 @@
 <br>
 
 ## 🚀 Overview
-**HackBar Modernized** is the revived and updated version of the legendary DH-HackBar penetration testing tool, fully optimized for modern Android devices (Target SDK 34). It brings powerful web security assessment capabilities directly to your smartphone.
+**DroidHack Pro** is the revived and updated version of the legendary DH-HackBar penetration testing tool, fully optimized for modern Android devices (Target SDK 34). It brings powerful web security assessment capabilities directly to your smartphone.
 
 Whether you are performing SQL Injections, Cross-Site Scripting (XSS) assessments, or bypassing Web Application Firewalls (WAF), HackBar provides an integrated toolkit right inside a specialized browser.
 
